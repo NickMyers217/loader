@@ -7,10 +7,6 @@ import InputData from './components/InputData';
 import TransformationPipeline from './components/TransformationPipeline';
 
 // TODO: edit node
-    // TODO: form
-        // TODO: node types
-        // TODO: transform (map, filter, and reduce)
-        // TODO: ajax (extract and load)
 // TODO: display the node
 
 // TODO: run (autorunning? except for ajax stuff/maybe mocking?)

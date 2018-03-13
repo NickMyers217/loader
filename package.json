@@ -11,7 +11,8 @@
     "react-json-view": "^1.16.1",
     "react-scripts": "1.1.1",
     "react-sortable-tree": "^2.1.0",
-    "reactstrap": "^5.0.0-beta.2"
+    "reactstrap": "^5.0.0-beta.2",
+    "uuid": "^3.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
