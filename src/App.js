@@ -2,21 +2,21 @@ import React, { Component } from 'react';
 
 import Nav from './components/Nav';
 import InputData from './components/InputData';
-import Transformation from './components/Transformation';
+import TransformationPipeline from './components/TransformationPipeline';
 
 // TODO: Add a new node
-// TODO: form
-// TODO: node types
-// TODO: transform (map, filter, and reduce)
-// TODO: ajax (extract and load)
-
+    // TODO: form
+        // TODO: node types
+            // TODO: transform (map, filter, and reduce)
+            // TODO: ajax (extract and load)
+        // TOOD: coding ui
 // TODO: display the node
 // TODO: edit node
-// TODO: ui???
+    // TODO: ui???
 // TODO: delete node
 
-// TODO: run
-// TODO: debug buttons
+// TODO: run (autorunning? except for ajax stuff/maybe mocking?)
+// TODO: debug
 // TODO: autorun feature? (except for ajax operations)
 
 // TODO: cacheing, saving, and loading (redux???)
@@ -42,7 +42,7 @@ class App extends Component {
                             updateFn={(e) => this.setState({ inputData: e.updated_src })}
                         />
                         <hr />
-                        <Transformation
+                        <TransformationPipeline
                             title="Transformations"
                             treeData={this.state.transformationTree}
                             onChange={transformationTree => this.setState({ transformationTree })}

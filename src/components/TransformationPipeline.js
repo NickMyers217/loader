@@ -5,7 +5,7 @@ import SortableTree from 'react-sortable-tree';
 
 import CircleButton from './CircleButton';
 
-class Transformation extends Component {
+class TransformationPipeline extends Component {
     render () {
         return (
             <div>
@@ -18,6 +18,14 @@ class Transformation extends Component {
                     <SortableTree
                         treeData={this.props.treeData}
                         onChange={this.props.onChange}
+                        generateNodeProps={({ node, path }) => ({
+                            buttons: [
+                                (<button>edit</button>)
+                            ],
+                            subtitle: (
+                                <p>badge</p>
+                            )
+                        })}
                     />
                 </div>
             </div>
@@ -25,4 +33,4 @@ class Transformation extends Component {
     }
 }
 
-export default Transformation;
+export default TransformationPipeline;
