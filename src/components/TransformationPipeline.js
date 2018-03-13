@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import uuid from 'uuid/v4';
 import 'react-sortable-tree/style.css';
 import SortableTree, { changeNodeAtPath, removeNodeAtPath } from 'react-sortable-tree';
-import { Alert, Button, Label, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input } from 'reactstrap';
+import { Alert, Badge, Button, Label, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input } from 'reactstrap';
 import FaEdit from 'react-icons/lib/fa/edit';
 import FaTrash from 'react-icons/lib/fa/trash';
 
@@ -42,7 +42,13 @@ class TransformationPipeline extends Component {
         this.props.onChange(changeNodeAtPath({
             treeData,
             path: form.path,
-            newNode: {...editingNode, ...form},
+            newNode: {
+                ...editingNode,
+                ...form,
+                title: (
+                    <span><Badge color="primary">{form.type}</Badge> {form.title}</span>
+                )
+            },
             getNodeKey: ({ node }) => node.id,
             ignoreCollapsed: false
         }));
@@ -51,7 +57,7 @@ class TransformationPipeline extends Component {
 
     generateNode = () => ({
         id: uuid(),
-        title: '',
+        title: ':( Edit me',
         children: []
     });
 

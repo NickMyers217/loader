@@ -6,9 +6,7 @@ import Nav from './components/Nav';
 import InputData from './components/InputData';
 import TransformationPipeline from './components/TransformationPipeline';
 
-// TODO: edit node
-// TODO: display the node
-
+// TODO: program the node
 // TODO: run (autorunning? except for ajax stuff/maybe mocking?)
 // TODO: debug
 // TODO: autorun feature? (except for ajax operations)

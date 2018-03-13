@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5c33294b-b436-4317-94ed-b71892a11648" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/App.js" afterPath="$PROJECT_DIR$/src/App.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/TransformationPipeline.js" afterPath="$PROJECT_DIR$/src/components/TransformationPipeline.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -23,11 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="App.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-336">
-              <caret line="9" column="15" lean-forward="false" selection-start-line="9" selection-start-column="15" selection-end-line="9" selection-end-column="15" />
+            <state relative-caret-position="168">
+              <caret line="9" column="24" lean-forward="false" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -35,11 +36,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TransformationPipeline.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TransformationPipeline.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/TransformationPipeline.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="84" column="44" lean-forward="false" selection-start-line="84" selection-start-column="44" selection-end-line="84" selection-end-column="44" />
+            <state relative-caret-position="28">
+              <caret line="16" column="24" lean-forward="false" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -75,8 +76,8 @@
         <option value="$PROJECT_DIR$/src/components/Transformation.js" />
         <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/src/components/InputData.js" />
-        <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/components/TransformationPipeline.js" />
+        <option value="$PROJECT_DIR$/src/App.js" />
       </list>
     </option>
   </component>
@@ -119,22 +120,6 @@
             <path>
               <item name="transformation_utils" type="b2602c69:ProjectViewProjectNode" />
               <item name="transformation_utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="transformation_utils" type="b2602c69:ProjectViewProjectNode" />
-              <item name="transformation_utils" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="transformation_utils" type="b2602c69:ProjectViewProjectNode" />
-              <item name="transformation_utils" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="transformation_utils" type="b2602c69:ProjectViewProjectNode" />
-              <item name="transformation_utils" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -193,7 +178,7 @@
       <option name="presentableId" value="Default" />
       <updated>1520867600290</updated>
       <workItem from="1520867602309" duration="13050000" />
-      <workItem from="1520950151494" duration="13434000" />
+      <workItem from="1520950151494" duration="14254000" />
     </task>
     <task id="LOCAL-00001" summary="Feat: add the ace editor for JSON typing">
       <created>1520951685833</created>
@@ -230,11 +215,18 @@
       <option name="project" value="LOCAL" />
       <updated>1520974378068</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Chore: remove accidental debugger">
+      <created>1520974427372</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1520974427372</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26484000" />
+    <option name="totallyTimeSpent" value="27304000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -272,7 +264,8 @@
     <MESSAGE value="Feat: add better errors for loading JSON input" />
     <MESSAGE value="Feat: implement removing nodes" />
     <MESSAGE value="Feat: primitive node editing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Feat: primitive node editing" />
+    <MESSAGE value="Chore: remove accidental debugger" />
+    <option name="LAST_COMMIT_MESSAGE" value="Chore: remove accidental debugger" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -389,20 +382,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.js">
+    <entry file="file://$PROJECT_DIR$/src/components/TransformationPipeline.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-336">
-          <caret line="9" column="15" lean-forward="false" selection-start-line="9" selection-start-column="15" selection-end-line="9" selection-end-column="15" />
+        <state relative-caret-position="28">
+          <caret line="16" column="24" lean-forward="false" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/TransformationPipeline.js">
+    <entry file="file://$PROJECT_DIR$/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="84" column="44" lean-forward="false" selection-start-line="84" selection-start-column="44" selection-end-line="84" selection-end-column="44" />
+        <state relative-caret-position="168">
+          <caret line="9" column="24" lean-forward="false" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
