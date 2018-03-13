@@ -20,7 +20,7 @@ import CircleButton from './CircleButton';
 
 class InputData extends Component {
     constructor (props) {
-        super(props)
+        super(props);
 
         this.state = {
             modal: false,
@@ -37,7 +37,7 @@ class InputData extends Component {
             jsonText: JSON.stringify(this.props.data, null, 2),
             chosenFile: ''
         });
-    }
+    };
 
     loadData = () => {
         const dataIsFromFile = this.state.startDataFromFile;
@@ -58,7 +58,7 @@ class InputData extends Component {
         } else {
             tryToUpdateJson(this.state.jsonText);
         }
-    }
+    };
 
     render () {
         return (

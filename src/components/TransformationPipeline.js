@@ -11,10 +11,11 @@ class TransformationPipeline extends Component {
             <div>
                 <div>
                     <h3>
-                        {this.props.title || ''} <CircleButton />
+                        {this.props.title || ''}{' '}
+                        <CircleButton onClick={() => this.props.onNewNode({title: 'Node', children: []})} />
                     </h3>
                 </div>
-                <div  style={{height: this.props.height || 300}}>
+                <div style={{height: this.props.height || 300}}>
                     <SortableTree
                         treeData={this.props.treeData}
                         onChange={this.props.onChange}

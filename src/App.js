@@ -1,25 +1,24 @@
 import React, { Component } from 'react';
 
+import { getVisibleNodeCount } from 'react-sortable-tree';
+
 import Nav from './components/Nav';
 import InputData from './components/InputData';
 import TransformationPipeline from './components/TransformationPipeline';
 
-// TODO: Add a new node
-    // TODO: form
-        // TODO: node types
-            // TODO: transform (map, filter, and reduce)
-            // TODO: ajax (extract and load)
-        // TOOD: coding ui
 // TODO: display the node
 // TODO: edit node
-    // TODO: ui???
+    // TODO: form
+        // TODO: node types
+        // TODO: transform (map, filter, and reduce)
+        // TODO: ajax (extract and load)
 // TODO: delete node
 
 // TODO: run (autorunning? except for ajax stuff/maybe mocking?)
 // TODO: debug
 // TODO: autorun feature? (except for ajax operations)
 
-// TODO: cacheing, saving, and loading (redux???)
+// TODO: cacheing, saving, and loading (redux with a local storage subscription???)
 
 class App extends Component {
     constructor(props) {
@@ -27,7 +26,7 @@ class App extends Component {
 
         this.state = {
             inputData: {},
-            transformationTree: [{ title: 'Node 1', children: [{ title: 'Node 2' }] }],
+            treeData: [],
         };
     }
 
@@ -44,8 +43,13 @@ class App extends Component {
                         <hr />
                         <TransformationPipeline
                             title="Transformations"
-                            treeData={this.state.transformationTree}
-                            onChange={transformationTree => this.setState({ transformationTree })}
+                            treeData={this.state.treeData}
+                            height={getVisibleNodeCount(this.state) * 75}
+                            onChange={treeData => this.setState({ treeData })}
+                            onNewNode={node => this.setState(prevState => ({
+                                ...prevState,
+                                treeData: prevState.treeData.concat(node)
+                            }))}
                         />
                     </div>
                 </div>
