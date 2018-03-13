@@ -82,7 +82,6 @@ class TransformationPipeline extends Component {
                                     <Button
                                         color='danger'
                                         onClick={() => {
-                                            debugger;
                                             this.props.onChange(removeNodeAtPath({
                                                 treeData: this.props.treeData,
                                                 path,
