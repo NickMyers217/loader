@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+    Alert,
     Modal,
     ModalHeader,
     ModalBody,
@@ -26,7 +27,8 @@ class InputData extends Component {
             modal: false,
             startDataFromFile: true,
             jsonText: JSON.stringify(props.data, null, 2),
-            chosenFile: ''
+            chosenFile: '',
+            loadError: null,
         };
     }
 
@@ -35,17 +37,20 @@ class InputData extends Component {
             modal: !this.state.modal,
             startDataFromFile: true,
             jsonText: JSON.stringify(this.props.data, null, 2),
-            chosenFile: ''
+            chosenFile: '',
+            loadError: null,
         });
     };
 
     loadData = () => {
+        const self = this;
         const dataIsFromFile = this.state.startDataFromFile;
         const tryToUpdateJson = (jsonText) => {
             try {
                 this.props.updateFn({ updated_src: JSON.parse(jsonText) });
+                self.toggle();
             } catch (e) {
-                alert(e);
+                self.setState({ loadError: e });
             }
         };
 
@@ -135,7 +140,7 @@ class InputData extends Component {
                                         showGutter={true}
                                         highlightActiveLine={true}
                                         value={this.state.jsonText}
-                                        style={{width: '100%', height: 250}}
+                                        style={{width: '100%', height: 225}}
                                         setOptions={{
                                             enableBasicAutocompletion: false,
                                             enableLiveAutocompletion: false,
@@ -144,10 +149,12 @@ class InputData extends Component {
                                         }}
                                     />
                                 </FormGroup>}
+                            {this.state.loadError &&
+                                <Alert color="danger">{`${this.state.loadError}`}</Alert>}
                         </Form>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={() => { this.loadData(); this.toggle() }}>Load</Button>{' '}
+                        <Button color="primary" onClick={this.loadData}>Load</Button>{' '}
                         <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
