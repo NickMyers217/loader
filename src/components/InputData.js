@@ -12,6 +12,9 @@ import {
     Input
 } from 'reactstrap';
 import ReactJson from 'react-json-view';
+import AceEditor from 'react-ace';
+import 'brace/mode/json';
+import 'brace/theme/tomorrow';
 
 import CircleButton from './CircleButton';
 
@@ -20,8 +23,8 @@ class InputData extends Component {
         super(props)
 
         this.state = {
-            startDataFromFile: false,
             modal: false,
+            startDataFromFile: true,
             jsonText: JSON.stringify(props.data, null, 2),
             chosenFile: ''
         };
@@ -30,7 +33,7 @@ class InputData extends Component {
     toggle = () => {
         this.setState({
             modal: !this.state.modal,
-            startDataFromFile: false,
+            startDataFromFile: true,
             jsonText: JSON.stringify(this.props.data, null, 2),
             chosenFile: ''
         });
@@ -67,7 +70,7 @@ class InputData extends Component {
                     </h3>
                     <ReactJson
                         name={false}
-                        collapsed={false}
+                        collapsed={true}
                         theme='apathy:inverted'
                         onEdit={this.props.updateFn}
                         onDelete={this.props.updateFn}
@@ -76,7 +79,7 @@ class InputData extends Component {
                     />
                 </div>
 
-                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                <Modal isOpen={this.state.modal} toggle={this.toggle} className='modal-lg'>
                     <ModalHeader toggle={this.toggle}>Upload Input Data</ModalHeader>
                     <ModalBody>
                         <Form>
@@ -88,10 +91,10 @@ class InputData extends Component {
                                         <Input
                                             type="radio"
                                             name="radio1"
-                                            checked={!this.state.startDataFromFile}
-                                            onChange={() => this.setState({ startDataFromFile: false })}
+                                            checked={this.state.startDataFromFile}
+                                            onChange={() => this.setState({ startDataFromFile: true })}
                                         />{' '}
-                                        Paste/type JSON data into a text box
+                                        Upload JSON data from a file
                                     </Label>
                                 </FormGroup>
                                 <FormGroup check>
@@ -99,10 +102,10 @@ class InputData extends Component {
                                         <Input
                                             type="radio"
                                             name="radio1"
-                                            checked={this.state.startDataFromFile}
-                                            onChange={() => this.setState({ startDataFromFile: true })}
+                                            checked={!this.state.startDataFromFile}
+                                            onChange={() => this.setState({ startDataFromFile: false })}
                                         />{' '}
-                                        Upload JSON data from a file
+                                        Paste/type JSON data into a text box
                                     </Label>
                                 </FormGroup>
                             </FormGroup>
@@ -122,10 +125,24 @@ class InputData extends Component {
                                 </FormGroup>}
                             {!this.state.startDataFromFile &&
                                 <FormGroup>
-                                    <Label for="inputText">JSON text</Label>
-                                    <Input type="textarea" name="text" id="inputText" value={this.state.jsonText}
-                                        rows={10}
-                                        onChange={(e) => this.setState({ jsonText: e.target.value })} />
+                                    <AceEditor
+                                        mode="json"
+                                        theme="tomorrow"
+                                        name="text"
+                                        onChange={(newValue) => this.setState({ jsonText: newValue })}
+                                        fontSize={16}
+                                        showPrintMargin={true}
+                                        showGutter={true}
+                                        highlightActiveLine={true}
+                                        value={this.state.jsonText}
+                                        style={{width: '100%', height: 250}}
+                                        setOptions={{
+                                            enableBasicAutocompletion: false,
+                                            enableLiveAutocompletion: false,
+                                            showLineNumbers: true,
+                                            tabSize: 2,
+                                        }}
+                                    />
                                 </FormGroup>}
                         </Form>
                     </ModalBody>

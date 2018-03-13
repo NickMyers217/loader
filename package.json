@@ -5,6 +5,7 @@
   "dependencies": {
     "bootstrap": "^4.0.0",
     "react": "^16.2.0",
+    "react-ace": "^5.9.0",
     "react-dom": "^16.2.0",
     "react-icons": "^2.2.7",
     "react-json-view": "^1.16.1",
