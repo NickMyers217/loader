@@ -3,19 +3,15 @@ import React, { Component } from 'react';
 import 'react-sortable-tree/style.css';
 import SortableTree from 'react-sortable-tree';
 
-import PlusSign from './PlusSign';
+import CircleButton from './CircleButton';
 
 class Transformation extends Component {
-    constructor (props) {
-        super(props);
-    }
-
     render () {
         return (
             <div>
                 <div>
                     <h3>
-                        {this.props.title || ''} <PlusSign />
+                        {this.props.title || ''} <CircleButton />
                     </h3>
                 </div>
                 <div  style={{height: this.props.height || 300}}>

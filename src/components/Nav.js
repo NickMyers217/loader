@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const Nav = ({ title }) => (
     <nav className="navbar navbar-light bg-light" style={{marginBottom: 30}}>
