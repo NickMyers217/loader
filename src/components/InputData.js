@@ -135,7 +135,7 @@ class InputData extends Component {
                                         theme="tomorrow"
                                         name="text"
                                         onChange={(newValue) => this.setState({ jsonText: newValue })}
-                                        fontSize={16}
+                                        fontSize={14}
                                         showPrintMargin={true}
                                         showGutter={true}
                                         highlightActiveLine={true}

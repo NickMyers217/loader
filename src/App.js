@@ -6,13 +6,12 @@ import Nav from './components/Nav';
 import InputData from './components/InputData';
 import TransformationPipeline from './components/TransformationPipeline';
 
-// TODO: display the node
 // TODO: edit node
     // TODO: form
         // TODO: node types
         // TODO: transform (map, filter, and reduce)
         // TODO: ajax (extract and load)
-// TODO: delete node
+// TODO: display the node
 
 // TODO: run (autorunning? except for ajax stuff/maybe mocking?)
 // TODO: debug
