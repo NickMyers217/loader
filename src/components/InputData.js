@@ -135,12 +135,12 @@ class InputData extends Component {
                                         theme="tomorrow"
                                         name="text"
                                         onChange={(newValue) => this.setState({ jsonText: newValue })}
-                                        fontSize={14}
                                         showPrintMargin={true}
                                         showGutter={true}
                                         highlightActiveLine={true}
                                         value={this.state.jsonText}
-                                        style={{width: '100%', height: 225}}
+                                        fontSize={16}
+                                        style={{width: '100%', height: 225, fontFamily: 'monospace'}}
                                         setOptions={{
                                             enableBasicAutocompletion: false,
                                             enableLiveAutocompletion: false,
