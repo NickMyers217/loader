@@ -6,9 +6,11 @@ import Nav from './components/Nav';
 import InputData from './components/InputData';
 import TransformationPipeline from './components/TransformationPipeline';
 
-// TODO: program the node
 // TODO: run (autorunning? except for ajax stuff/maybe mocking?)
-// TODO: debug
+    // TODO: passing data from node to node
+    // TODO: accessing variables in a context???
+    // TODO: UX and helpful messages?
+// TODO: debug feature?
 // TODO: autorun feature? (except for ajax operations)
 
 // TODO: cacheing, saving, and loading (redux with a local storage subscription???)
