@@ -62,21 +62,21 @@ class TransformationPipeline extends Component {
 
     generateNode = () => ({
         id: uuid(),
-        displayTitle: ':( Edit me',
-        title: undefined,
+        displayTitle: '',
+        title: 'Edit Me :(',
         children: []
     });
 
     getDefaultScript = (type) => {
         switch (type) {
             case 'AJAX Request':
-                return 'const ajaxOptions = {\n  url: "",\n  method: "GET",\n  findOptions: {}\n};';
+                return '// Generate the ajax request options from the previous transformation\'s ouput\nfunction generateRequestOptions (data) {\n  return {\n    url: "",\n    method: "GET",\n    findOptions: {}\n  };\n}\n\n// Generate some data to pass to the next transformation in the chain\n// You will be returning an array for map, filter, or reduce\nfunction generateOutput (data, ajaxResult) {\n  return [];\n}\n';
             case 'Map':
-                return '// See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map\n\nfunction myMapFn (doc) {\n  return doc;\n}';
+                return '// See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map\n\nfunction myMapFn (doc) {\n  return doc;\n}\n';
             case 'Filter':
-                return '// See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter\n\nfunction myFilterFn (doc) {\n  return true;\n}';
+                return '// See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter\n\nfunction myFilterFn (doc) {\n  return true;\n}\n';
             case 'Reduce':
-                return '// See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce\n\nconst initialValue = []; // This is the starting point for the reduce\nfunction myReducerFn (accumulator, currentValue) {\n  return accumulator.concat(currentValue);\n}';
+                return '// See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce\n\nconst initialValue = []; // This is the starting point for the reduce\nfunction myReducerFn (accumulator, currentValue) {\n  return accumulator.concat(currentValue);\n}\n';
             default:
                 return '';
         }
