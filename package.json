@@ -9,9 +9,13 @@
     "react-dom": "^16.2.0",
     "react-icons": "^2.2.7",
     "react-json-view": "^1.16.1",
+    "react-redux": "^5.0.7",
     "react-scripts": "1.1.1",
     "react-sortable-tree": "^2.1.0",
     "reactstrap": "^5.0.0-beta.2",
+    "redux": "^3.7.2",
+    "redux-observable": "^0.18.0",
+    "rxjs": "^5.5.7",
     "uuid": "^3.2.1"
   },
   "scripts": {
