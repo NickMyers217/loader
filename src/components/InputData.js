@@ -15,7 +15,7 @@ import {
 import ReactJson from 'react-json-view';
 import AceEditor from 'react-ace';
 import 'brace/mode/json';
-import 'brace/theme/tomorrow';
+import 'brace/theme/twilight';
 
 import CircleButton from './CircleButton';
 
@@ -132,7 +132,7 @@ class InputData extends Component {
                                 <FormGroup>
                                     <AceEditor
                                         mode="json"
-                                        theme="tomorrow"
+                                        theme="twilight"
                                         name="text"
                                         onChange={(newValue) => this.setState({ jsonText: newValue })}
                                         showPrintMargin={true}

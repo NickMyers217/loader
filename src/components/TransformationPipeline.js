@@ -6,6 +6,9 @@ import SortableTree, { changeNodeAtPath, removeNodeAtPath } from 'react-sortable
 import { Alert, Badge, Button, Label, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input } from 'reactstrap';
 import FaEdit from 'react-icons/lib/fa/edit';
 import FaTrash from 'react-icons/lib/fa/trash';
+import AceEditor from 'react-ace';
+import 'brace/mode/javascript';
+import 'brace/theme/twilight';
 
 import CircleButton from './CircleButton';
 
@@ -17,9 +20,11 @@ class TransformationPipeline extends Component {
             modal: false,
             editingNode: {},
             form: {
-                title: '',
+                path: [],
+                displayTitle: '',
+                title: undefined,
                 type: '',
-                path: []
+                script: '',
             }
         };
     }
@@ -29,9 +34,11 @@ class TransformationPipeline extends Component {
             modal: !this.state.modal,
             editingNode: node || {},
             form: {
-                title: node && node.title ? node.title : '',
+                path: path && Array.isArray(path) && path.length > 0 ? path : [],
+                displayTitle: node && node.displayTitle ? node.displayTitle : '',
+                title: node && node.title ? node.title : undefined,
                 type: node && node.type ? node.type : '',
-                path: path && Array.isArray(path) && path.length > 0 ? path : []
+                script: node && node.script ? node.script : '',
             }
         });
     };
@@ -45,9 +52,7 @@ class TransformationPipeline extends Component {
             newNode: {
                 ...editingNode,
                 ...form,
-                title: (
-                    <span><Badge color="primary">{form.type}</Badge> {form.title}</span>
-                )
+                title: <span><Badge color="primary">{form.type}</Badge> {form.displayTitle}</span>
             },
             getNodeKey: ({ node }) => node.id,
             ignoreCollapsed: false
@@ -57,9 +62,25 @@ class TransformationPipeline extends Component {
 
     generateNode = () => ({
         id: uuid(),
-        title: ':( Edit me',
+        displayTitle: ':( Edit me',
+        title: undefined,
         children: []
     });
+
+    getDefaultScript = (type) => {
+        switch (type) {
+            case 'AJAX Request':
+                return 'const ajaxOptions = {\n  url: "",\n  method: "GET",\n  findOptions: {}\n};';
+            case 'Map':
+                return '// See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map\n\nfunction myMapFn (doc) {\n  return doc;\n}';
+            case 'Filter':
+                return '// See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter\n\nfunction myFilterFn (doc) {\n  return true;\n}';
+            case 'Reduce':
+                return '// See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce\n\nconst initialValue = []; // This is the starting point for the reduce\nfunction myReducerFn (accumulator, currentValue) {\n  return accumulator.concat(currentValue);\n}';
+            default:
+                return '';
+        }
+    };
 
     render () {
         return (
@@ -93,8 +114,7 @@ class TransformationPipeline extends Component {
                                                 path,
                                                 getNodeKey: ({node}) => node.id
                                             }))
-                                        }
-                                        }
+                                        }}
                                     >
                                         <FaTrash/>
                                     </Button>
@@ -109,16 +129,15 @@ class TransformationPipeline extends Component {
                     <ModalBody>
                         <Form>
                             <p>This node will be part of a transformation pipeline that your data will travel through.</p>
-                            {/* TODO: Title */}
                             <FormGroup>
                                 <Label for="title">Name</Label>
                                 <Input type="title" name="title" id="title" placeholder="Name (eg: Query job docs)"
-                                       value={this.state.form.title}
+                                       value={this.state.form.displayTitle}
                                        onChange={(e) => {
-                                           const title = e.target.value;
+                                           const displayTitle = e.target.value;
                                            this.setState(state => ({
                                                ...state,
-                                               form: { ...state.form, title }
+                                               form: { ...state.form, displayTitle }
                                            }));
                                        }}
                                 />
@@ -131,7 +150,7 @@ class TransformationPipeline extends Component {
                                            const type = e.target.value;
                                            this.setState(state => ({
                                                ...state,
-                                               form: { ...state.form, type }
+                                               form: { ...state.form, type, script: this.getDefaultScript(type) }
                                            }));
                                        }}
                                 >
@@ -142,7 +161,31 @@ class TransformationPipeline extends Component {
                                     <option>Reduce</option>
                                 </Input>
                             </FormGroup>
-                            {/* TODO: coding? */}
+                            <FormGroup>
+                                <Label for="scriptEditor">Write a script for this node:</Label>
+                                <AceEditor
+                                    mode="javascript"
+                                    theme="twilight"
+                                    name="scriptEditor"
+                                    id="scriptEditor"
+                                    value={this.state.form.script}
+                                    onChange={script => this.setState(state => ({
+                                        ...state,
+                                        form: { ...state.form, script }
+                                    }))}
+                                    showPrintMargin={true}
+                                    showGutter={true}
+                                    highlightActiveLine={true}
+                                    fontSize={16}
+                                    style={{ width: '100%', height: 225, fontFamily: 'monospace' }}
+                                    setOptions={{
+                                        enableBasicAutocompletion: true,
+                                        enableLiveAutocompletion: true,
+                                        showLineNumbers: true,
+                                        tabSize: 2,
+                                    }}
+                                />
+                            </FormGroup>
                         </Form>
                     </ModalBody>
                     <ModalFooter>
