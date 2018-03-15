@@ -9,17 +9,19 @@ import TransformationPipeline from './components/TransformationPipeline';
 
 // TODO: refactoring and moving state into redux/redux-observable
 
-// TODO: scripting api (revisit after r&d into running???)
-// TODO: run (autorunning? except for ajax stuff/maybe mocking?)
-// TODO: passing data from node to node
-// TODO: accessing variables in a context???
+// TODO: running the pipeline 
 // TODO: how to handle ajax requests (batching large amounts of data?)
+
+// TODO: revisit the scripting api
+// TODO: isolate the types of transformations, their interface for the user, and their interface for being executed
+// TODO: make everything in the app related to the transformations generated from those interfaces as much as possible
+// TODO: does this mean forms for editing nodes will need to templated, or broken out elsewhere?
+
+// TODO: autorunning? except for ajax stuff/maybe mocking?
 // TODO: UX and helpful messages?
-
 // TODO: debug feature?
-// TODO: autorun feature? (except for ajax operations)
 
-// TODO: cacheing, saving, and loading (redux local storage subscription???) and a function that dumps/loads state from json
+// TODO: local storage subscription and a function that dumps/loads state from json
 
 class App extends Component {
   constructor(props) {
