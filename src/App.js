@@ -12,6 +12,8 @@ import TransformationPipeline from './components/TransformationPipeline';
 // TODO: running the pipeline 
 // TODO: how to handle ajax requests (batching large amounts of data?)
 
+// TODO: UI for node running and result analysis
+
 // TODO: revisit the scripting api
 // TODO: isolate the types of transformations, their interface for the user, and their interface for being executed
 // TODO: make everything in the app related to the transformations generated from those interfaces as much as possible
