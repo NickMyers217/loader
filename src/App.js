@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { getVisibleNodeCount } from 'react-sortable-tree';
 
 import Nav from './components/Nav';
-import InputData from './components/InputData';
+import InputData from './containers/InputData';
 import TransformationPipeline from './components/TransformationPipeline';
 
 
@@ -26,7 +26,6 @@ class App extends Component {
     super(props);
 
     this.state = {
-      inputData: {},
       treeData: [],
     };
   }
@@ -37,10 +36,7 @@ class App extends Component {
         <Nav title='Unified FieldLink Loader' />
         <div className="container">
           <div>
-            <InputData
-              data={this.state.inputData}
-              updateFn={(e) => this.setState({ inputData: e.updated_src })}
-            />
+            <InputData />
             <hr />
             <TransformationPipeline
               title="Transformations"

@@ -1,0 +1,4 @@
+export const LOAD_INPUT_DATA = 'LOAD_INPUT_DATA';
+
+export const RESET_INPUT_FORM = 'RESET_INPUT_FORM';
+export const EDIT_INPUT_FORM = 'EDIT_INPUT_FORM';

@@ -9,49 +9,41 @@ export default class InputData extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      modal: false,
-      startDataFromFile: true,
-      jsonText: JSON.stringify(props.data, null, 2),
-      chosenFile: '',
-      loadError: null,
-    };
+    this.state = { modal: false };
   }
 
   toggle = () => {
-    this.setState({
-      modal: !this.state.modal,
-      startDataFromFile: true,
-      jsonText: JSON.stringify(this.props.data, null, 2),
-      chosenFile: '',
-      loadError: null,
-    });
+    this.setState({ modal: !this.state.modal });
+    this.props.resetInputForm();
+    this.props.editInputForm({ jsonText: JSON.stringify(this.props.input, null, 2) });
   };
 
   loadData = () => {
-    const self = this;
-    const dataIsFromFile = this.state.startDataFromFile;
+    const { startDataFromFile, jsonText } = this.props.inputForm;
+
     const tryToUpdateJson = (jsonText) => {
       try {
-        this.props.updateFn({ updated_src: JSON.parse(jsonText) });
-        self.toggle();
+        this.props.loadInputData(JSON.parse(jsonText));
+        this.toggle();
       } catch (e) {
-        self.setState({ loadError: e });
+        this.props.editInputForm({ loadError: e });
       }
     };
 
-    if (dataIsFromFile && this._files && this._files.length > 0) {
+    if (startDataFromFile && this._files && this._files.length > 0) {
       let reader = new FileReader();
       reader.onload = (e) => {
         tryToUpdateJson(e.target.result);
       };
       reader.readAsText(this._files[0]);
     } else {
-      tryToUpdateJson(this.state.jsonText);
+      tryToUpdateJson(jsonText);
     }
   };
 
   render() {
+    const { editInputForm, inputForm } = this.props;
+    const { startDataFromFile, jsonText, chosenFile, loadError } = inputForm;
     return (
       <div>
         <div>
@@ -63,10 +55,10 @@ export default class InputData extends Component {
             name={false}
             collapsed={true}
             theme='apathy:inverted'
-            onEdit={this.props.updateFn}
-            onDelete={this.props.updateFn}
-            onAdd={this.props.updateFn}
-            src={this.props.data}
+            onEdit={({ updated_src }) => this.props.loadInputData(updated_src)}
+            onDelete={({ updated_src }) => this.props.loadInputData(updated_src)}
+            onAdd={({ updated_src }) => this.props.loadInputData(updated_src)}
+            src={this.props.input}
           />
         </div>
 
@@ -82,48 +74,48 @@ export default class InputData extends Component {
                     <Input
                       type="radio"
                       name="radio1"
-                      checked={this.state.startDataFromFile}
-                      onChange={() => this.setState({ startDataFromFile: true })}
+                      checked={startDataFromFile}
+                      onChange={() => editInputForm({ startDataFromFile: true })}
                     />{' '}
                     Upload JSON data from a file
-                                    </Label>
+                  </Label>
                 </FormGroup>
                 <FormGroup check>
                   <Label check>
                     <Input
                       type="radio"
                       name="radio1"
-                      checked={!this.state.startDataFromFile}
-                      onChange={() => this.setState({ startDataFromFile: false })}
+                      checked={!startDataFromFile}
+                      onChange={() => editInputForm({ startDataFromFile: false })}
                     />{' '}
                     Paste/type JSON data into a text box
-                                    </Label>
+                  </Label>
                 </FormGroup>
               </FormGroup>
-              {this.state.startDataFromFile &&
+              {startDataFromFile &&
                 <FormGroup>
                   <Label for="inputFile">File:</Label>
-                  <Input type="file" name="file" id="inputFile" value={this.state.chosenFile}
+                  <Input type="file" name="file" id="inputFile" value={chosenFile}
                     innerRef={(input) => {
                       if (input) {
                         this._files = input.files;
                       }
                     }}
-                    onChange={(e) => this.setState({ chosenFile: e.target.value })} />
+                    onChange={(e) => editInputForm({ chosenFile: e.target.value })} />
                   <FormText color="muted">
                     Your file should contain valid JSON!
                                     </FormText>
                 </FormGroup>}
-              {!this.state.startDataFromFile &&
+              {!startDataFromFile &&
                 <FormGroup>
                   <Editor
                     mode="json"
-                    value={this.state.jsonText}
-                    onChange={(newValue) => this.setState({ jsonText: newValue })}
+                    value={jsonText}
+                    onChange={(newValue) => editInputForm({ jsonText: newValue })}
                   />
                 </FormGroup>}
-              {this.state.loadError &&
-                <Alert color="danger">{`${this.state.loadError}`}</Alert>}
+              {loadError &&
+                <Alert color="danger">{`${loadError}`}</Alert>}
             </Form>
           </ModalBody>
           <ModalFooter>
