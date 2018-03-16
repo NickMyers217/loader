@@ -26,9 +26,8 @@ export function evaluateNodeEpic (action$, store) {
     .ofType(ActionTypes.EVALUATE_NODE)
     .switchMap(({ payload: { nodeIndex, input } }) => {
       const node = store.getState().tree.pipeline[nodeIndex];
-      return Observable.from([
-        finishNode(nodeIndex, input.map(eval(`(${node.script})`)))
-      ])
+      return Observable
+        .of(finishNode(nodeIndex, input.map(eval(`(${node.script})`))))
         .catch(terminatePipeline);
     });
 }
@@ -40,11 +39,10 @@ export function continuePipelineEpic (action$, store) {
       const pipeline = store.getState().tree.pipeline;
       const nextNodeIndex = nodeIndex + 1;
       return nextNodeIndex === pipeline.length
-        ? Observable.from([finishPipeline(output)])
-        : Observable.concat([
-          startNode(nextNodeIndex),
-          evaluateNode(nextNodeIndex, output),
-        ])
+        ? Observable
+          .of(finishPipeline(output))
+        : Observable
+          .concat([ startNode(nextNodeIndex), evaluateNode(nextNodeIndex, output) ])
           .catch(terminatePipeline);
     })
 }
