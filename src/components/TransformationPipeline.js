@@ -30,7 +30,7 @@ export default class TransformationPipeline extends Component {
   };
 
   updateTree = () => {
-    const { treeData, nodeForm } = this.props;
+    const { nodeForm } = this.props;
     this.props.swapNodeAtPath({
       ...nodeForm,
       title:(
@@ -114,6 +114,7 @@ export default class TransformationPipeline extends Component {
                 <Label for="scriptEditor">Write a script for this node:</Label>
                 <Editor
                   mode="javascript"
+                  height={400}
                   value={this.props.nodeForm.script}
                   onChange={script => this.props.editNodeForm({ script })}
                   />

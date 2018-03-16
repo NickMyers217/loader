@@ -1,5 +1,5 @@
 import { combineEpics } from 'redux-observable';
 
-import getFile from './getFile';
+import { runPipeline, continuePipeline } from './runTransformationPipeline';
 
-export default combineEpics(getFile);
+export default combineEpics(runPipeline, continuePipeline);

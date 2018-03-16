@@ -55,6 +55,7 @@ export default class InputData extends Component {
         <div>
           <h3>
             Input Data
+            {' '}
             <CircleButton type='plus' onClick={this.toggle} />
           </h3>
           <ReactJson

@@ -53,3 +53,28 @@ export function removeNodeAtPath (path) {
 export function addNewNode () {
   return { type: ActionTypes.ADD_NEW_NODE };
 }
+
+export function runPipeline () {
+  return { type: ActionTypes.RUN_PIPELINE };
+}
+
+export function startNode (node) {
+  return {
+    type: ActionTypes.START_NODE,
+    payload: { node }
+  };
+}
+
+export function evaluateNode (input, node, tail) {
+  return {
+    type: ActionTypes.EVALUATE_NODE,
+    payload: { input, node, tail }
+  };
+}
+
+export function finishNode (node, output, tail) {
+  return {
+    type: ActionTypes.FINISH_NODE,
+    payload: { node, output, tail }
+  };
+}

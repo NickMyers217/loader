@@ -4,7 +4,7 @@ import 'brace/mode/json';
 import 'brace/mode/javascript';
 import 'brace/theme/twilight';
 
-export default function Editor ({ mode, value, onChange }) {
+export default function Editor ({ height, mode, value, onChange }) {
   return (
     <AceEditor
       mode={mode}
@@ -16,7 +16,8 @@ export default function Editor ({ mode, value, onChange }) {
       showGutter={true}
       highlightActiveLine={true}
       fontSize={16}
-      style={{ width: '100%', height: 225, fontFamily: 'monospace' }}
+      tabSize={2}
+      style={{ width: '100%', height: height || 225, fontFamily: 'monospace' }}
       setOptions={{
         enableBasicAutocompletion: true,
         enableLiveAutocompletion: true,

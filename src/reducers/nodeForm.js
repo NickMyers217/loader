@@ -76,11 +76,10 @@ export default function nodeForm (state=initialState, action) {
     case ActionTypes.RESET_NODE_FORM:
       return initialState;
     case ActionTypes.EDIT_NODE_FORM:
-      return {
-        ...state,
-        ...action.payload.fieldsToMerge,
-        script: getDefaultScript(action.payload.fieldsToMerge.type || '')
-      };
+      let { type } = action.payload.fieldsToMerge;
+      return type === undefined
+        ? { ...state, ...action.payload.fieldsToMerge }
+        : { ...state, ...action.payload.fieldsToMerge, script: getDefaultScript(type) }
     default:
       return state;
   }

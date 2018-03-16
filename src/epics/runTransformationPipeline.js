@@ -3,24 +3,32 @@ import { ajax } from 'rxjs/observable/dom/ajax';
 import { getFlatDataFromTree } from 'react-sortable-tree';
 
 import * as ActionTypes from '../ActionTypes';
-import {} from '../actions';
+import { startNode, evaluateNode, finishNode } from '../actions';
 
 // TODO: Figure out error handling
 
-export function runPipeline (action$) {
+export function runPipeline (action$, store) {
   return action$.ofType(ActionTypes.RUN_PIPELINE)
+    .do(action => console.log('Running pipeline!'))
     .map(action => ({
-      input: action.payload.input,
-      pipeline: getFlatDataFromTree(action.payload.tree)
+      input: store.getState().input,
+      pipeline: getFlatDataFromTree({
+        treeData: store.getState().tree.data,
+        getNodeKey: ({ node }) => node.id,
+        ignoreCollapsed: false
+      })
+        .map(({ node }) => node)
     }))
     .flatMap(({ input, pipeline }) =>
       Observable.from([
-        startNode(pipeline.slice(0, 1)),
-        evaluateNode(pipeline.slice(0, 1), pipeline.slice(1), input)
+        startNode(pipeline.slice(0, 1).shift()),
+        evaluateNode(input, pipeline.slice(0, 1).shift(), pipeline.slice(1)),
+        finishNode(pipeline.slice(0, 1).shift(), input, pipeline.slice(1))
       ])
     )
 }
 
+/*
 export function evauluateNode (action$) {
   return action$.ofType(ActionTypes.EVALUATE_NODE)
     .flatMap(({ node, tail, input }) => {
@@ -44,17 +52,19 @@ export function evauluateNode (action$) {
       return observable.map(output => finishNode(node, ouput, tail));
     })
 }
+*/
 
-// TODO: maybe he can be merged with the runPipeline epic somehow
-// TODO: base case for ending the pipeline
+// TODO: maybe he can be merged with the runPipeline epic somehow??
 export function continuePipeline (action$) {
   return action$.ofType(ActionTypes.FINISH_NODE)
-    .flatMap(({ node, input, tail }) =>
+    .flatMap(({ payload }) =>
       // TODO: add cancellation here for a stop button?
-      Observable.from([
-        startNode(tail.slice(0, 1)),
-        evaluateNode(tail.slice(0, 1), tail.slice(1), input)
-      ])
+      payload.tail.length === 0
+        ? Observable.do(_ => console.log('Finished!')) // TODO: actual action
+        : Observable.from([
+          startNode(payload.tail.slice(0, 1).shift()),
+          evaluateNode(payload.output, payload.tail.slice(0, 1).shift(), payload.tail.slice(1)),
+          finishNode(payload.tail.slice(0, 1).shift(), payload.output, payload.tail.slice(1))
+        ])
     )
 }
-
