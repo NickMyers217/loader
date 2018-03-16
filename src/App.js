@@ -4,19 +4,20 @@ import Nav from './components/Nav';
 import InputData from './containers/InputData';
 import TransformationPipeline from './containers/TransformationPipeline';
 
-// TODO: learn more about redux-observable
+// DEBUG: learn more about redux-observable
 // https://stackoverflow.com/questions/40021344/why-use-redux-observable-over-redux-saga
 // https://hackmd.io/s/H1xLHUQ8e#side-by-side-comparison
-// TODO: implement filter and reduce
-// TODO: implement ajax requests (batching large amounts of data?)
-// TODO: Figure out error handling
-// TODO: Figure out cancellation
-// TODO: Figure out how to reduce code size
 
-
-// TODO: revisit the scripting api
+// TODO: revisit the scripting api since we broke reduce and ajax
 // BUG: fix the script reseting when you go to edit
 // TODO: UI/UX for the scripting api, documentation stuff w/ links, and a fullscreen toggle
+// TODO: add the play button
+
+// TODO: Figure out error handling (when we terminate the pipeline we need to know what node erred)
+// TODO: Figure out cancellation
+// TODO: Figure out how to reduce code size
+// TODO: Do batching
+
 // TODO: UI for node running and result analysis
 
 // TODO: isolate the types of transformations, their interface for the user, and their interface for being executed
