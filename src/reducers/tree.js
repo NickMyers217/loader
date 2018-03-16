@@ -1,7 +1,17 @@
 import uuid from 'uuid/v4';
-import { getVisibleNodeCount,  changeNodeAtPath, removeNodeAtPath } from 'react-sortable-tree';
+import {
+  getVisibleNodeCount,
+  changeNodeAtPath,
+  removeNodeAtPath,
+  getFlatDataFromTree
+} from 'react-sortable-tree';
 
 import * as ActionTypes from '../ActionTypes';
+
+const initialState = {
+  data: [],
+  visibileCount: 0
+};
 
 const getNewNode = () => ({
   id: uuid(),
@@ -10,12 +20,15 @@ const getNewNode = () => ({
   children: []
 });
 
-const initialState = {
-  data: [],
-  visibileCount: 0
-};
-
 const getNodeKey = ({ node }) => node.id;
+
+const flattenTree = treeData =>
+  getFlatDataFromTree({
+    treeData,
+    getNodeKey,
+    ignoreCollapsed: false
+  })
+  .map(({ node }) => node);
 
 export default function tree (state=initialState, action) {
   switch (action.type) {
@@ -48,6 +61,8 @@ export default function tree (state=initialState, action) {
         data: state.data.concat(getNewNode()),
         visibileCount: state.visibileCount + 1
       };
+    case ActionTypes.RUN_PIPELINE:
+      return { ...state, pipeline: flattenTree(state.data) };
     default:
       return state;
   }

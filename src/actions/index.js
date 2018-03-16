@@ -58,24 +58,24 @@ export function runPipeline () {
   return { type: ActionTypes.RUN_PIPELINE };
 }
 
-export function startNode (node) {
+export function startNode (nodeIndex) {
   return {
     type: ActionTypes.START_NODE,
-    payload: { node }
+    payload: { nodeIndex }
   };
 }
 
-export function evaluateNode (input, node, tail) {
+export function evaluateNode (nodeIndex, input) {
   return {
     type: ActionTypes.EVALUATE_NODE,
-    payload: { input, node, tail }
+    payload: { nodeIndex, input }
   };
 }
 
-export function finishNode (node, output, tail) {
+export function finishNode (nodeIndex, output) {
   return {
     type: ActionTypes.FINISH_NODE,
-    payload: { node, output, tail }
+    payload: { nodeIndex, output }
   };
 }
 

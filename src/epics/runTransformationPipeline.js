@@ -1,62 +1,50 @@
 import { Observable } from 'rxjs';
 import { getFlatDataFromTree } from 'react-sortable-tree';
+import * as R from 'ramda';
 
 import * as ActionTypes from '../ActionTypes';
 import { startNode, evaluateNode, finishNode, finishPipeline, terminatePipeline } from '../actions';
 
-// TODO: Figure out error handling
-// TODO: Figure out cancellation
-// TODO: Figure out how to reduce code size
-
 export function runPipelineEpic (action$, store) {
   return action$
     .ofType(ActionTypes.RUN_PIPELINE)
-    .map(action => ({
-      input: store.getState().input,
-      pipeline: getFlatDataFromTree({
-        treeData: store.getState().tree.data,
-        getNodeKey: ({ node }) => node.id,
-        ignoreCollapsed: false
-      }).map(({ node }) => node)
-    }))
-    .switchMap(({ input, pipeline }) => {
-      const node = pipeline.slice(0, 1).shift();
-      const tail = pipeline.slice(1);
-
+    .switchMap(() => {
+      const input = store.getState().input;
+      const pipeline = store.getState().tree.pipeline;
+      const node = R.head(pipeline);
+      const tail = R.tail(pipeline);
       return pipeline.length > 0
-        ? Observable.concat([
-          startNode(node),
-          evaluateNode(input, node, tail)
-        ]).catch(terminatePipeline)
-        : Observable.from([ finishPipeline(input) ]);
+        ? Observable
+          .concat([ startNode(0), evaluateNode(0, input) ])
+          .catch(terminatePipeline)
+        : Observable.of(finishPipeline(input));
     });
 }
 
-export function evaluateNodeEpic (action$) {
+export function evaluateNodeEpic (action$, store) {
   return action$
     .ofType(ActionTypes.EVALUATE_NODE)
-    .switchMap(({ payload }) => {
-      const { node, input, tail } = payload;
-      debugger;
+    .switchMap(({ payload: { nodeIndex, input } }) => {
+      const node = store.getState().tree.pipeline[nodeIndex];
       return Observable.from([
-        finishNode(node, input.map(eval(`(${node.script})`)), tail)
-      ]).catch(terminatePipeline);
+        finishNode(nodeIndex, input.map(eval(`(${node.script})`)))
+      ])
+        .catch(terminatePipeline);
     });
 }
 
-export function continuePipelineEpic (action$) {
+export function continuePipelineEpic (action$, store) {
   return action$
     .ofType(ActionTypes.FINISH_NODE)
-    .switchMap(({ payload }) => {
-      const { tail, output } = payload;
-      const node = tail.slice(0, 1).shift();
-      const newTail = payload.tail.slice(1);
-      return payload.tail.length === 0
+    .switchMap(({ payload: { nodeIndex, output } }) => {
+      const pipeline = store.getState().tree.pipeline;
+      const nextNodeIndex = nodeIndex + 1;
+      return nextNodeIndex === pipeline.length
         ? Observable.from([finishPipeline(output)])
         : Observable.concat([
-          startNode(node),
-          evaluateNode(output, node, newTail),
-          finishNode(node, output, newTail)
-        ]).catch(terminatePipeline);
+          startNode(nextNodeIndex),
+          evaluateNode(nextNodeIndex, output),
+        ])
+          .catch(terminatePipeline);
     })
 }

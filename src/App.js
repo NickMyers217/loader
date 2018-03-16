@@ -4,14 +4,18 @@ import Nav from './components/Nav';
 import InputData from './containers/InputData';
 import TransformationPipeline from './containers/TransformationPipeline';
 
-// TODO: switch to redux-saga since it has WAYYYY better support for sequencing complex actions together???
+// TODO: learn more about redux-observable
 // https://stackoverflow.com/questions/40021344/why-use-redux-observable-over-redux-saga
 // https://hackmd.io/s/H1xLHUQ8e#side-by-side-comparison
+// TODO: implement filter and reduce
+// TODO: implement ajax requests (batching large amounts of data?)
+// TODO: Figure out error handling
+// TODO: Figure out cancellation
+// TODO: Figure out how to reduce code size
 
-// TODO: do an initial test w/ sync operations
-// TODO: how to handle ajax requests (batching large amounts of data?)
 
 // TODO: revisit the scripting api
+// BUG: fix the script reseting when you go to edit
 // TODO: UI/UX for the scripting api, documentation stuff w/ links, and a fullscreen toggle
 // TODO: UI for node running and result analysis
 
