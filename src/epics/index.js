@@ -1,5 +1,5 @@
 import { combineEpics } from 'redux-observable';
 
-import { runPipeline, continuePipeline } from './runTransformationPipeline';
+import { runPipelineEpic, evaluateNodeEpic, continuePipelineEpic } from './runTransformationPipeline';
 
-export default combineEpics(runPipeline, continuePipeline);
+export default combineEpics(runPipelineEpic, evaluateNodeEpic, continuePipelineEpic);

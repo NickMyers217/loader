@@ -78,3 +78,17 @@ export function finishNode (node, output, tail) {
     payload: { node, output, tail }
   };
 }
+
+export function finishPipeline (result) {
+  return {
+    type: ActionTypes.FINISH_PIPELINE,
+    payload: { result }
+  };
+}
+
+export function terminatePipeline (err) {
+  return {
+    type: ActionTypes.TERMINATE_PIPELINE,
+    payload: { err }
+  };
+}

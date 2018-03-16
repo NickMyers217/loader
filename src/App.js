@@ -1,11 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import Nav from './components/Nav';
 import InputData from './containers/InputData';
 import TransformationPipeline from './containers/TransformationPipeline';
 
+// TODO: switch to redux-saga since it has WAYYYY better support for sequencing complex actions together???
+// https://stackoverflow.com/questions/40021344/why-use-redux-observable-over-redux-saga
+// https://hackmd.io/s/H1xLHUQ8e#side-by-side-comparison
 
-// TODO: running the pipeline
+// TODO: do an initial test w/ sync operations
 // TODO: how to handle ajax requests (batching large amounts of data?)
 
 // TODO: revisit the scripting api
@@ -16,34 +19,28 @@ import TransformationPipeline from './containers/TransformationPipeline';
 // TODO: make everything in the app related to the transformations generated from those interfaces as much as possible
 // TODO: does this mean forms for editing nodes will need to templated, or broken out elsewhere?
 
-// TODO: UX and helpful messages?
-// TODO: debug feature that runs nodes one at a time then waits?
-
-// TODO: local storage subscription and a function that dumps/loads state from json
-
 // TODO: UX styling and look/feel
+// TODO: UX and helpful messages?
+// TODO: Disable and enable nodes
+// TODO: Replay starting at a specific node
+// TODO: debug feature that runs nodes one at a time then waits for approval to continue?
+// TODO: progress bar or percentage updates
 
-export default class App extends Component {
-  constructor(props) {
-    super(props);
+// TODO: local storage subscription and a function that dumps/loads state from json to make testing/debugging/sharing easier
 
-    this.state = {
-      treeData: [],
-    };
-  }
+// TODO: easter egg, clippy based tutorial on how to delete assets
 
-  render() {
-    return (
+const App = () => (
+  <div>
+    <Nav title='Unified FieldLink Loader' />
+    <div className="container">
       <div>
-        <Nav title='Unified FieldLink Loader' />
-        <div className="container">
-          <div>
-            <InputData />
-            <hr />
-            <TransformationPipeline height={800} title="Transformations" />
-          </div>
-        </div>
+        <InputData />
+        <hr />
+        <TransformationPipeline height={800} title="Transformations" />
       </div>
-    );
-  }
-}
+    </div>
+  </div>
+);
+
+export default App;
