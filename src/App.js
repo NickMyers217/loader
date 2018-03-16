@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 
-import { getVisibleNodeCount } from 'react-sortable-tree';
-
 import Nav from './components/Nav';
 import InputData from './containers/InputData';
-import TransformationPipeline from './components/TransformationPipeline';
+import TransformationPipeline from './containers/TransformationPipeline';
 
 
 // TODO: refactoring and moving state into redux/redux-observable
 
-// TODO: running the pipeline 
+// TODO: running the pipeline
 // TODO: how to handle ajax requests (batching large amounts of data?)
 
 // TODO: UI for node running and result analysis
@@ -25,7 +23,7 @@ import TransformationPipeline from './components/TransformationPipeline';
 
 // TODO: local storage subscription and a function that dumps/loads state from json
 
-class App extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
 
@@ -42,21 +40,10 @@ class App extends Component {
           <div>
             <InputData />
             <hr />
-            <TransformationPipeline
-              title="Transformations"
-              treeData={this.state.treeData}
-              height={getVisibleNodeCount(this.state) * 75}
-              onChange={treeData => this.setState({ treeData })}
-              onNewNode={node => this.setState(prevState => ({
-                ...prevState,
-                treeData: prevState.treeData.concat(node)
-              }))}
-            />
+            <TransformationPipeline height={800} title="Transformations" />
           </div>
         </div>
       </div>
     );
   }
 }
-
-export default App;

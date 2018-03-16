@@ -10,9 +10,9 @@ const initialState = {
 export default function inputForm (state=initialState, action) {
   switch (action.type) {
     case ActionTypes.RESET_INPUT_FORM:
-      return { ...initialState, jsonText: state.jsonText }
+      return { ...initialState, jsonText: state.jsonText };
     case ActionTypes.EDIT_INPUT_FORM:
-      return { ...state, ...action.payload.fieldsToMerge }
+      return { ...state, ...action.payload.fieldsToMerge };
     default:
       return state;
   }

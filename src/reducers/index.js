@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
 
 import input from './input';
+import tree from './tree';
 import inputForm from './inputForm';
-//import tree from './tree';
-//import editNodeForm from './editNodeForm';
+import nodeForm from './nodeForm';
 
 export default combineReducers({
   input,
+  tree,
   inputForm,
-  //tree,
-  //editNodeForm
+  nodeForm
 });
