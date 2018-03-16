@@ -26,7 +26,7 @@ export default class TransformationPipeline extends Component {
       modal: !this.state.modal
     });
     this.props.resetNodeForm();
-    this.props.editNodeForm({ ...node, path } || {});
+    this.props.editNodeForm(node && node.id ? { ...node, path } : {});
   };
 
   updateTree = () => {
@@ -104,10 +104,10 @@ export default class TransformationPipeline extends Component {
                   }}
                   >
                   <option></option>
-                  <option>AJAX Request</option>
-                  <option>Filter</option>
                   <option>Map</option>
+                  <option>Filter</option>
                   <option>Reduce</option>
+                  <option>AJAX Request</option>
                 </Input>
               </FormGroup>
               <FormGroup>
