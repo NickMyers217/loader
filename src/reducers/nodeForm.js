@@ -88,8 +88,10 @@ export default function nodeForm(state = initialState, action) {
     case ActionTypes.RESET_NODE_FORM:
       return initialState;
     case ActionTypes.EDIT_NODE_FORM:
-      let { type } = action.payload.fieldsToMerge;
-      return type === undefined
+      let { type, id } = action.payload.fieldsToMerge;
+      debugger;
+      // Reset the script to the default if we are doing a type change with no id
+      return type === undefined || id
         ? { ...state, ...action.payload.fieldsToMerge }
         : {
             ...state,

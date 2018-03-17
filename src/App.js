@@ -4,7 +4,6 @@ import Nav from './components/Nav';
 import InputData from './containers/InputData';
 import TransformationPipeline from './containers/TransformationPipeline';
 
-// BUG: fix the script reseting when you go to edit
 // TODO: UI/UX for the scripting api, documentation stuff w/ links, and a fullscreen toggle
 // TODO: add the play button
 
