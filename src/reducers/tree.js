@@ -27,10 +27,9 @@ const flattenTree = treeData =>
     treeData,
     getNodeKey,
     ignoreCollapsed: false
-  })
-  .map(({ node }) => node);
+  }).map(({ node }) => node);
 
-export default function tree (state=initialState, action) {
+export default function tree(state = initialState, action) {
   switch (action.type) {
     case ActionTypes.SWAP_TREE:
       return {
@@ -52,7 +51,11 @@ export default function tree (state=initialState, action) {
     case ActionTypes.REMOVE_NODE_AT_PATH:
       return {
         ...state,
-        data: removeNodeAtPath({ treeData: state.data, path: action.payload.path, getNodeKey }),
+        data: removeNodeAtPath({
+          treeData: state.data,
+          path: action.payload.path,
+          getNodeKey
+        }),
         visibileCount: state.visibileCount - 1
       };
     case ActionTypes.ADD_NEW_NODE:

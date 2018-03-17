@@ -36,7 +36,7 @@ import TransformationPipeline from './containers/TransformationPipeline';
 
 const App = () => (
   <div>
-    <Nav title='Unified FieldLink Loader' />
+    <Nav title="Unified FieldLink Loader" />
     <div className="container">
       <div>
         <InputData />

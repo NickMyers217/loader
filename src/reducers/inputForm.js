@@ -4,10 +4,10 @@ const initialState = {
   startDataFromFile: true,
   jsonText: '',
   chosenFile: '',
-  loadError: null,
+  loadError: null
 };
 
-export default function inputForm (state=initialState, action) {
+export default function inputForm(state = initialState, action) {
   switch (action.type) {
     case ActionTypes.RESET_INPUT_FORM:
       return { ...initialState, jsonText: state.jsonText };

@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import {
-  Alert, Button,
-  Modal, ModalHeader, ModalBody, ModalFooter,
-  Form, FormGroup, FormText, Label, Input
+  Alert,
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Form,
+  FormGroup,
+  FormText,
+  Label,
+  Input
 } from 'reactstrap';
 import ReactJson from 'react-json-view';
 
@@ -27,7 +35,7 @@ export default class InputData extends Component {
   loadData = () => {
     const { startDataFromFile, jsonText } = this.props.inputForm;
 
-    const tryToUpdateJson = (jsonText) => {
+    const tryToUpdateJson = jsonText => {
       try {
         this.props.loadInputData(JSON.parse(jsonText));
         this.toggle();
@@ -38,7 +46,7 @@ export default class InputData extends Component {
 
     if (startDataFromFile && this._files && this._files.length > 0) {
       let reader = new FileReader();
-      reader.onload = (e) => {
+      reader.onload = e => {
         tryToUpdateJson(e.target.result);
       };
       reader.readAsText(this._files[0]);
@@ -54,26 +62,32 @@ export default class InputData extends Component {
       <div>
         <div>
           <h3>
-            Input Data
-            {' '}
-            <CircleButton type='plus' onClick={this.toggle} />
+            Input Data <CircleButton type="plus" onClick={this.toggle} />
           </h3>
           <ReactJson
             name={false}
             collapsed={true}
-            theme='apathy:inverted'
+            theme="apathy:inverted"
             onEdit={({ updated_src }) => this.props.loadInputData(updated_src)}
-            onDelete={({ updated_src }) => this.props.loadInputData(updated_src)}
+            onDelete={({ updated_src }) =>
+              this.props.loadInputData(updated_src)
+            }
             onAdd={({ updated_src }) => this.props.loadInputData(updated_src)}
             src={this.props.input}
-            />
+          />
         </div>
 
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className='modal-lg'>
+        <Modal
+          isOpen={this.state.modal}
+          toggle={this.toggle}
+          className="modal-lg">
           <ModalHeader toggle={this.toggle}>Upload Input Data</ModalHeader>
           <ModalBody>
             <Form>
-              <p>Provide optional input data that can be used in your transformation pipeline.</p>
+              <p>
+                Provide optional input data that can be used in your
+                transformation pipeline.
+              </p>
               <FormGroup tag="fieldset">
                 <legend>What are you trying to do?</legend>
                 <FormGroup check>
@@ -82,8 +96,10 @@ export default class InputData extends Component {
                       type="radio"
                       name="radio1"
                       checked={startDataFromFile}
-                      onChange={() => editInputForm({ startDataFromFile: true })}
-                      />
+                      onChange={() =>
+                        editInputForm({ startDataFromFile: true })
+                      }
+                    />
                     Upload JSON data from a file
                   </Label>
                 </FormGroup>
@@ -93,40 +109,46 @@ export default class InputData extends Component {
                       type="radio"
                       name="radio1"
                       checked={!startDataFromFile}
-                      onChange={() => editInputForm({ startDataFromFile: false })}
-                      />
+                      onChange={() =>
+                        editInputForm({ startDataFromFile: false })
+                      }
+                    />
                     Paste/type JSON data into a text box
                   </Label>
                 </FormGroup>
               </FormGroup>
-              {startDataFromFile &&
+              {startDataFromFile && (
                 <FormGroup>
                   <Label for="inputFile">File:</Label>
-                  <Input type="file" name="file" id="inputFile" value={chosenFile}
-                    innerRef={(input) => {
+                  <Input
+                    type="file"
+                    name="file"
+                    id="inputFile"
+                    value={chosenFile}
+                    innerRef={input => {
                       if (input) {
                         this._files = input.files;
                       }
                     }}
-                    onChange={(e) => editInputForm({ chosenFile: e.target.value })}
-                    />
+                    onChange={e =>
+                      editInputForm({ chosenFile: e.target.value })
+                    }
+                  />
                   <FormText color="muted">
                     Your file should contain valid JSON!
                   </FormText>
                 </FormGroup>
-              }
-              {!startDataFromFile &&
+              )}
+              {!startDataFromFile && (
                 <FormGroup>
                   <Editor
                     mode="json"
                     value={jsonText}
-                    onChange={(newValue) => editInputForm({ jsonText: newValue })}
-                    />
+                    onChange={newValue => editInputForm({ jsonText: newValue })}
+                  />
                 </FormGroup>
-              }
-              {loadError &&
-                <Alert color="danger">{`${loadError}`}</Alert>
-              }
+              )}
+              {loadError && <Alert color="danger">{`${loadError}`}</Alert>}
             </Form>
           </ModalBody>
           <ModalFooter>

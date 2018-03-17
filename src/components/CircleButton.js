@@ -5,7 +5,11 @@ import './CircleButton.css';
 import FaCalendarPlusO from 'react-icons/lib/fa/plus-circle';
 import FaInfoCircle from 'react-icons/lib/fa/info-circle';
 
-export default function CircleButton  ({ type = 'plus', color, onClick = () => { } }) {
+export default function CircleButton({
+  type = 'plus',
+  color,
+  onClick = () => {}
+}) {
   if (type === 'plus') {
     return (
       <FaCalendarPlusO
@@ -24,4 +28,4 @@ export default function CircleButton  ({ type = 'plus', color, onClick = () => {
       />
     );
   }
-};
+}

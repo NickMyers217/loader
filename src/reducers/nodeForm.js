@@ -5,10 +5,10 @@ const initialState = {
   displayTitle: '',
   title: undefined,
   type: '',
-  script: '',
+  script: ''
 };
 
-const getDefaultScript = (type) => {
+const getDefaultScript = type => {
   switch (type) {
     case 'Map':
       return `\
@@ -83,7 +83,7 @@ function myFilterFn (doc) {
   }
 };
 
-export default function nodeForm (state=initialState, action) {
+export default function nodeForm(state = initialState, action) {
   switch (action.type) {
     case ActionTypes.RESET_NODE_FORM:
       return initialState;
@@ -91,7 +91,11 @@ export default function nodeForm (state=initialState, action) {
       let { type } = action.payload.fieldsToMerge;
       return type === undefined
         ? { ...state, ...action.payload.fieldsToMerge }
-        : { ...state, ...action.payload.fieldsToMerge, script: getDefaultScript(type) }
+        : {
+            ...state,
+            ...action.payload.fieldsToMerge,
+            script: getDefaultScript(type)
+          };
     default:
       return state;
   }

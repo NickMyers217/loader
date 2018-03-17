@@ -20,4 +20,6 @@ const mapDispatchToProps = {
   editNodeForm
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TransformationPipeline);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  TransformationPipeline
+);

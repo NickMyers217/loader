@@ -2,9 +2,16 @@ import React, { Component } from 'react';
 import SortableTree from 'react-sortable-tree';
 import 'react-sortable-tree/style.css';
 import {
-  Badge, Button,
-  Modal, ModalHeader, ModalBody, ModalFooter,
-  Form, FormGroup, Label, Input
+  Badge,
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Form,
+  FormGroup,
+  Label,
+  Input
 } from 'reactstrap';
 import FaEdit from 'react-icons/lib/fa/edit';
 import FaTrash from 'react-icons/lib/fa/trash';
@@ -33,13 +40,9 @@ export default class TransformationPipeline extends Component {
     const { nodeForm } = this.props;
     this.props.swapNodeAtPath({
       ...nodeForm,
-      title:(
+      title: (
         <span>
-          <Badge color="primary">
-            {nodeForm.type}
-          </Badge>
-          {' '}
-          {nodeForm.displayTitle}
+          <Badge color="primary">{nodeForm.type}</Badge> {nodeForm.displayTitle}
         </span>
       )
     });
@@ -64,46 +67,61 @@ export default class TransformationPipeline extends Component {
               generateNodeProps={({ node, path }) => ({
                 buttons: [
                   <Button
-                    color='primary'
+                    color="primary"
                     style={{ marginRight: 4 }}
-                    onClick={() => this.toggle(node, path)}
-                    >
+                    onClick={() => this.toggle(node, path)}>
                     <FaEdit />
                   </Button>,
-                  <Button color='danger' onClick={() => { this.props.removeNodeAtPath(path) }}>
+                  <Button
+                    color="danger"
+                    onClick={() => {
+                      this.props.removeNodeAtPath(path);
+                    }}>
                     <FaTrash />
                   </Button>
                 ]
               })}
-              />
+            />
           </div>
         </div>
 
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className='modal-lg'>
+        <Modal
+          isOpen={this.state.modal}
+          toggle={this.toggle}
+          className="modal-lg">
           <ModalHeader toggle={this.toggle}>Edit Node</ModalHeader>
           <ModalBody>
             <Form>
-              <p>This node will be part of a transformation pipeline that your data will travel through.</p>
+              <p>
+                This node will be part of a transformation pipeline that your
+                data will travel through.
+              </p>
               <FormGroup>
                 <Label for="title">Name</Label>
-                <Input type="title" name="title" id="title" placeholder="Name (eg: Query job docs)"
+                <Input
+                  type="title"
+                  name="title"
+                  id="title"
+                  placeholder="Name (eg: Query job docs)"
                   value={this.props.nodeForm.displayTitle}
-                  onChange={(e) => {
+                  onChange={e => {
                     const displayTitle = e.target.value;
                     this.props.editNodeForm({ displayTitle });
                   }}
-                  />
+                />
               </FormGroup>
               <FormGroup>
                 <Label for="type">Transformation Type</Label>
-                <Input type="select" name="type" id="type"
+                <Input
+                  type="select"
+                  name="type"
+                  id="type"
                   value={this.props.nodeForm.type}
-                  onChange={(e) => {
+                  onChange={e => {
                     const type = e.target.value;
                     this.props.editNodeForm({ type });
-                  }}
-                  >
-                  <option></option>
+                  }}>
+                  <option />
                   <option>Map</option>
                   <option>Filter</option>
                   <option>Reduce</option>
@@ -117,7 +135,7 @@ export default class TransformationPipeline extends Component {
                   height={400}
                   value={this.props.nodeForm.script}
                   onChange={script => this.props.editNodeForm({ script })}
-                  />
+                />
               </FormGroup>
             </Form>
           </ModalBody>
