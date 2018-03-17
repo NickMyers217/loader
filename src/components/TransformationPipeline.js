@@ -16,7 +16,6 @@ import {
 import FaEdit from 'react-icons/lib/fa/edit';
 import FaTrash from 'react-icons/lib/fa/trash';
 
-import './TransformationPipeline.css';
 import CircleButton from './CircleButton';
 import Editor from './Editor';
 
