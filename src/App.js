@@ -4,6 +4,7 @@ import Nav from './containers/Nav';
 import InputData from './containers/InputData';
 import TransformationPipeline from './containers/TransformationPipeline';
 
+// TODO: implement pipeline actions in the reducers
 // TODO: UI for node running, error reporting, and result analysis
 // TODO: Disable and enable nodes
 // TODO: progress bar or percentage updates
@@ -26,7 +27,7 @@ import TransformationPipeline from './containers/TransformationPipeline';
 
 const App = () => (
   <div>
-    <Nav title="Unified FieldLink Loader" />
+    <Nav title="Graphical λ Builder (GLB)" />
     <div className="container">
       <div>
         <InputData />

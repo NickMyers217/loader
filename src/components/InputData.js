@@ -61,9 +61,13 @@ export default class InputData extends Component {
     return (
       <div>
         <div>
-          <h3>
-            Input Data <CircleButton type="plus" onClick={this.toggle} />
-          </h3>
+          <nav
+            className="navbar navbar-light bg-light"
+            style={{ marginBottom: 10 }}
+          >
+            <h5>Input Data</h5>
+            <CircleButton type="plus" onClick={this.toggle} />
+          </nav>
           <ReactJson
             name={false}
             collapsed={true}
@@ -80,7 +84,8 @@ export default class InputData extends Component {
         <Modal
           isOpen={this.state.modal}
           toggle={this.toggle}
-          className="modal-lg">
+          className="modal-lg"
+        >
           <ModalHeader toggle={this.toggle}>Upload Input Data</ModalHeader>
           <ModalBody>
             <Form>

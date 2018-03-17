@@ -16,6 +16,7 @@ import {
 import FaEdit from 'react-icons/lib/fa/edit';
 import FaTrash from 'react-icons/lib/fa/trash';
 
+import './TransformationPipeline.css';
 import CircleButton from './CircleButton';
 import Editor from './Editor';
 
@@ -54,10 +55,13 @@ export default class TransformationPipeline extends Component {
       <div>
         <div>
           <div>
-            <h3>
-              {this.props.title || ''}{' '}
+            <nav
+              className="navbar navbar-light bg-light"
+              style={{ marginBottom: 10 }}
+            >
+              <h4>{this.props.title || ''} </h4>
               <CircleButton onClick={this.props.addNewNode} />
-            </h3>
+            </nav>
           </div>
           <div style={{ height: this.props.height || 300 }}>
             <SortableTree
