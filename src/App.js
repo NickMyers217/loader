@@ -8,7 +8,6 @@ import TransformationPipeline from './containers/TransformationPipeline';
 // https://stackoverflow.com/questions/40021344/why-use-redux-observable-over-redux-saga
 // https://hackmd.io/s/H1xLHUQ8e#side-by-side-comparison
 
-// TODO: revisit the scripting api since we broke reduce and ajax
 // BUG: fix the script reseting when you go to edit
 // TODO: UI/UX for the scripting api, documentation stuff w/ links, and a fullscreen toggle
 // TODO: add the play button

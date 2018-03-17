@@ -13,39 +13,37 @@ export function runPipelineEpic (action$, store) {
       return pipeline.length > 0
         ? Observable
           .concat([ startNode(0), evaluateNode(0, input) ])
-          .catch(terminatePipeline)
+          .catch(err => Observable.of(terminatePipeline))
         : Observable.of(finishPipeline(input));
     });
 }
 
 export function evaluateNodeEpic (action$, store) {
-  const evalNode = (node, input) => {
-    if (node.type === 'MAP') {
-      return Observable.of(input.map(eval(`(${node.script})`)));
-    }
-    if (node.type === 'FILTER') {
-      return Observable.of(input.filter(eval(`(${node.script})`)));
-    }
-    if (node.type === 'REDUCE') {
-      const { getInitialValueFn, myReducerFn } = eval(`(${node.script})`);
-      return Observable.of(input.reduce(myReducerFn, getInitialValueFn(input)));
-    }
-    if (node.type === 'AJAX REQUEST') {
-      // TODO: batching goes here
-      const { generateRequestOptsFn, generateOutputFn } = eval(`(${node.script})`);
-      return ajax(generateRequestOptsFn(input))
-        .map(e => e.response);
-    }
-  };
-
   return action$
   .ofType(ActionTypes.EVALUATE_NODE)
   .switchMap(({ payload: { nodeIndex, input } }) => {
     const node = store.getState().tree.pipeline[nodeIndex];
-    const output$ = evalNode(node, input);
-    return output$
-      .switchMap(output => finishNode(nodeIndex, output))
-      .catch(terminatePipeline);
+    const evalNode = (node, input) => {
+      if (node.type === 'Map') {
+        return Observable.of(input.map(eval(`(${node.script})`)));
+      }
+      if (node.type === 'Filter') {
+        return Observable.of(input.filter(eval(`(${node.script})`)));
+      }
+      if (node.type === 'Reduce') {
+        const { generateInitialValue, myReducerFn } = eval(`(${node.script})`);
+        return Observable.of(input.reduce(myReducerFn, generateInitialValue(input)));
+      }
+      if (node.type === 'AJAX Request') {
+        // TODO: batching goes here
+        const { generateRequestOptions, generateOutput } = eval(`(${node.script})`);
+        return ajax(generateRequestOptions(input))
+        .map(e => generateOutput(input, e.response))
+      }
+    };
+    return evalNode(node, input)
+      .switchMap(output => Observable.of(finishNode(nodeIndex, output)))
+      .catch(err => Observable.of(terminatePipeline(err)));
   });
 }
 
@@ -60,6 +58,6 @@ export function continuePipelineEpic (action$, store) {
           .of(finishPipeline(output))
         : Observable
           .concat([ startNode(nextNodeIndex), evaluateNode(nextNodeIndex, output) ])
-          .catch(terminatePipeline);
+          .catch(err => Observable.of(terminatePipeline(err)));
     })
 }

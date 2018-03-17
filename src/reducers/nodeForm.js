@@ -10,61 +10,73 @@ const initialState = {
 
 const getDefaultScript = (type) => {
   switch (type) {
-    case 'AJAX Request':
-      return `// Generate the ajax request's options from the previous transformation's ouput
-function generateRequestOptions (input) {
-  return {
-    url: "", // [Required] the url of your request
-    method: "GET", // [Required] the HTTP method of your request
-    headers: {}, // [Optional] headers for a request, usually for tokens and content-type
-    body: {}, // [Optional] the body of a POST or other request
-    reponseType: 'json' // [Optional] the response type
-  };
-}
-
-// Generate some data to pass to the next transformation
-// You can use both the input and the response of the request
-// You should be returning an array for map, filter, or reduce
-function generateOutput (input, ajaxResult) {
-  return [];
-}
-`;
     case 'Map':
-      return `// See the MDN documentation at:
+      return `\
+// See the MDN documentation at:
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
 
 // Your map function will be called on each element of
-//  the array generated from the previous transformation
+// the array generated from the previous transformation
 // In order to make a brand new array of the return values
 function myMapFn (doc) {
   return doc;
 }
 `;
     case 'Filter':
-      return `// See the MDN documentation at:
+      return `\
+// See the MDN documentation at:
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
 
 // Your filter function will be called on each element of
-//  the array generated from the previous transformation
+// the array generated from the previous transformation
 // In order to make a brand new array of the items with return values of true
 function myFilterFn (doc) {
   return true;
 }
 `;
     case 'Reduce':
-      return `// See the MDN documentation at:
+      return `\
+// See the MDN documentation at:
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
 
 // Your reducer function wil be called on each element of
-//  the array generated from the previous transformation
+// the array generated from the previous transformation
 // In order to accumulate/aggregate it into a brand new javascript value
-//  which will be seeded with an initial value
+// which will be seeded with an initial value
 
-const initialValue = []; // This is the starting point for the reduce
+(() => ({
+  // This returns the starting point for the reduce
+  generateInitialValue: function (input) {
+    return [];
+  },
 
-function myReducerFn (accumulator, currentValue) {
-  return accumulator.concat(currentValue);
-}
+  myReducerFn: function (accumulator, currentValue) {
+    return accumulator.concat(currentValue);
+  }
+}))()
+`;
+    case 'AJAX Request':
+      return `\
+(() => ({
+  // Generate the ajax options from the previous transformation's ouput
+  generateRequestOptions: function (input) {
+    return {
+      url: "",            // [Required] the url of your request
+      method: "GET",      // [Required] the HTTP method of your request
+      headers: {},        // [Optional] headers for the request
+      body: {},           // [Optional] the body of a POST or other request
+      reponseType: 'json' // [Optional] the response type you expect
+    };
+  },
+
+  // Generate some data to pass to the next transformation
+  // You can use both the input and the response of the request
+  // You can return anything you want BUT
+  // You should be returning an array for an upcomping map, filter, or reduce
+  generateOutput: function (input, ajaxResult) {
+    return [];
+  }
+}))()
 `;
     default:
       return '';
