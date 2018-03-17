@@ -1,11 +1,8 @@
 import React from 'react';
 
-import Nav from './components/Nav';
+import Nav from './containers/Nav';
 import InputData from './containers/InputData';
 import TransformationPipeline from './containers/TransformationPipeline';
-
-// TODO: UI/UX for the scripting api, documentation stuff w/ links, and a fullscreen toggle
-// TODO: add the play button
 
 // TODO: UI for node running, error reporting, and result analysis
 // TODO: Disable and enable nodes
@@ -22,6 +19,7 @@ import TransformationPipeline from './containers/TransformationPipeline';
 // TODO: does this mean forms for editing nodes will need to templated, or broken out elsewhere?
 
 // TODO: UX and helpful messages?
+// TODO: Fullscreen editor mode
 // TODO: debug feature that runs nodes one at a time then waits for approval to continue?
 // TODO: local storage subscription and a function that dumps/loads state from json to make testing/debugging/sharing easier
 // TODO: easter egg, clippy based tutorial on how to delete assets
@@ -33,7 +31,7 @@ const App = () => (
       <div>
         <InputData />
         <hr />
-        <TransformationPipeline height={800} title="Transformations" />
+        <TransformationPipeline height={800} title="Transformations λ" />
       </div>
     </div>
   </div>

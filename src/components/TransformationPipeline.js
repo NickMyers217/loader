@@ -69,14 +69,16 @@ export default class TransformationPipeline extends Component {
                   <Button
                     color="primary"
                     style={{ marginRight: 4 }}
-                    onClick={() => this.toggle(node, path)}>
+                    onClick={() => this.toggle(node, path)}
+                  >
                     <FaEdit />
                   </Button>,
                   <Button
                     color="danger"
                     onClick={() => {
                       this.props.removeNodeAtPath(path);
-                    }}>
+                    }}
+                  >
                     <FaTrash />
                   </Button>
                 ]
@@ -88,7 +90,8 @@ export default class TransformationPipeline extends Component {
         <Modal
           isOpen={this.state.modal}
           toggle={this.toggle}
-          className="modal-lg">
+          className="modal-lg"
+        >
           <ModalHeader toggle={this.toggle}>Edit Node</ModalHeader>
           <ModalBody>
             <Form>
@@ -120,7 +123,8 @@ export default class TransformationPipeline extends Component {
                   onChange={e => {
                     const type = e.target.value;
                     this.props.editNodeForm({ type });
-                  }}>
+                  }}
+                >
                   <option />
                   <option>Map</option>
                   <option>Filter</option>
@@ -130,10 +134,12 @@ export default class TransformationPipeline extends Component {
               </FormGroup>
               <FormGroup>
                 <Label for="scriptEditor">Write a script for this node:</Label>
+                <div>{this.props.nodeForm.docs}</div>
+                <br />
                 <Editor
                   mode="javascript"
-                  height={400}
                   value={this.props.nodeForm.script}
+                  height={350}
                   onChange={script => this.props.editNodeForm({ script })}
                 />
               </FormGroup>

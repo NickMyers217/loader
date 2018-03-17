@@ -1,14 +1,15 @@
 import React from 'react';
 
 import './CircleButton.css';
-
 import FaCalendarPlusO from 'react-icons/lib/fa/plus-circle';
 import FaInfoCircle from 'react-icons/lib/fa/info-circle';
+import FaPlayCircle from 'react-icons/lib/fa/play-circle';
 
 export default function CircleButton({
   type = 'plus',
   color,
-  onClick = () => {}
+  onClick = () => {},
+  size = 30
 }) {
   if (type === 'plus') {
     return (
@@ -16,6 +17,7 @@ export default function CircleButton({
         className="hoverable"
         color={color || 'green'}
         onClick={onClick}
+        size={size}
       />
     );
   }
@@ -25,6 +27,17 @@ export default function CircleButton({
         className="hoverable"
         color={color || 'blue'}
         onClick={onClick}
+        size={size}
+      />
+    );
+  }
+  if (type === 'play') {
+    return (
+      <FaPlayCircle
+        className="hoverable"
+        color={color || 'green'}
+        onClick={onClick}
+        size={size}
       />
     );
   }
