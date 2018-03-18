@@ -5,10 +5,9 @@ import InputData from './containers/InputData';
 import TransformationPipeline from './containers/TransformationPipeline';
 
 // TODO: implement pipeline actions in the reducers
-// TODO: UI for node running, error reporting, and result analysis
-// TODO: Disable and enable nodes
-// TODO: progress bar or percentage updates
-// TODO: Replay starting at a specific node
+// TODO: UI for node running, error reporting, and result analysis, progress, and time spent running
+// TODO: Disable and enable nodes (not by collapsing, collapsed ones still run, but some button to toggle them on and off)
+// TODO: Play starting at a specific node (maybe im lazy and only need part of the pipeline)
 
 // TODO: Figure out error handling (when we terminate the pipeline we need to know what node erred)
 // TODO: Figure out cancellation

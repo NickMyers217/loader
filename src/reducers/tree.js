@@ -1,4 +1,5 @@
 import uuid from 'uuid/v4';
+import * as R from 'ramda';
 import {
   getVisibleNodeCount,
   changeNodeAtPath,
@@ -29,6 +30,15 @@ const flattenTree = treeData =>
     ignoreCollapsed: false
   }).map(({ node }) => node);
 
+const swapNodeInTree = treeData => newNode =>
+  changeNodeAtPath({
+    treeData,
+    path: newNode.path,
+    newNode,
+    getNodeKey,
+    ignoreCollapsed: false
+  });
+
 export default function tree(state = initialState, action) {
   switch (action.type) {
     case ActionTypes.SWAP_TREE:
@@ -40,13 +50,7 @@ export default function tree(state = initialState, action) {
     case ActionTypes.SWAP_NODE_AT_PATH:
       return {
         ...state,
-        data: changeNodeAtPath({
-          treeData: state.data,
-          path: action.payload.path,
-          newNode: action.payload.newNode,
-          getNodeKey,
-          ignoreCollapsed: false
-        })
+        data: swapNodeInTree(state.data)(action.payload.newNode)
       };
     case ActionTypes.REMOVE_NODE_AT_PATH:
       return {
@@ -66,6 +70,40 @@ export default function tree(state = initialState, action) {
       };
     case ActionTypes.RUN_PIPELINE:
       return { ...state, pipeline: flattenTree(state.data) };
+    case ActionTypes.START_NODE: {
+      const { nodeIndex } = action.payload;
+      const currentNode = state.pipeline[nodeIndex];
+      const newNode = { ...currentNode, startDate: new Date() };
+      return {
+        ...state,
+        pipeline: R.update(nodeIndex, newNode, state.pipeline),
+        data: swapNodeInTree(state.data)(newNode)
+      };
+    }
+    case ActionTypes.EVALUATE_NODE: {
+      const { nodeIndex, input } = action.payload;
+      const currentNode = state.pipeline[nodeIndex];
+      const newNode = { ...currentNode, input };
+      return {
+        ...state,
+        pipeline: R.update(nodeIndex, newNode, state.pipeline),
+        data: swapNodeInTree(state.data)(newNode)
+      };
+    }
+    case ActionTypes.FINISH_NODE: {
+      const { nodeIndex, output } = action.payload;
+      const currentNode = state.pipeline[nodeIndex];
+      const finishDate = new Date();
+      const secondsElapsed = (finishDate - currentNode.startDate) / 1000;
+      const newNode = { ...currentNode, output, finishDate, secondsElapsed };
+      return {
+        ...state,
+        pipeline: R.update(nodeIndex, newNode, state.pipeline),
+        data: swapNodeInTree(state.data)(newNode)
+      };
+    }
+    case ActionTypes.FINISH_PIPELINE:
+      return { ...state, result: action.payload.result };
     default:
       return state;
   }
