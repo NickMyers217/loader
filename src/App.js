@@ -3,6 +3,7 @@ import React from 'react';
 import Nav from './containers/Nav';
 import InputData from './containers/InputData';
 import TransformationPipeline from './containers/TransformationPipeline';
+import OutputData from './containers/OutputData';
 
 // TODO: implement pipeline actions in the reducers
 // TODO: UI for node running, error reporting, and result analysis, progress, and time spent running
@@ -30,6 +31,8 @@ const App = () => (
     <div className="container">
       <div>
         <InputData />
+        <hr />
+        <OutputData />
         <hr />
         <TransformationPipeline height={800} title="Transformations λ" />
       </div>

@@ -73,7 +73,11 @@ export default function tree(state = initialState, action) {
     case ActionTypes.START_NODE: {
       const { nodeIndex } = action.payload;
       const currentNode = state.pipeline[nodeIndex];
-      const newNode = { ...currentNode, startDate: new Date() };
+      const newNode = {
+        ...currentNode,
+        startDate: new Date(),
+        subtitle: 'Starting...'
+      };
       return {
         ...state,
         pipeline: R.update(nodeIndex, newNode, state.pipeline),
@@ -83,7 +87,7 @@ export default function tree(state = initialState, action) {
     case ActionTypes.EVALUATE_NODE: {
       const { nodeIndex, input } = action.payload;
       const currentNode = state.pipeline[nodeIndex];
-      const newNode = { ...currentNode, input };
+      const newNode = { ...currentNode, input, subtitle: 'Evaluating...' };
       return {
         ...state,
         pipeline: R.update(nodeIndex, newNode, state.pipeline),
@@ -95,7 +99,13 @@ export default function tree(state = initialState, action) {
       const currentNode = state.pipeline[nodeIndex];
       const finishDate = new Date();
       const secondsElapsed = (finishDate - currentNode.startDate) / 1000;
-      const newNode = { ...currentNode, output, finishDate, secondsElapsed };
+      const newNode = {
+        ...currentNode,
+        output,
+        finishDate,
+        secondsElapsed,
+        subtitle: `Finished in ${secondsElapsed.toFixed(2)}`
+      };
       return {
         ...state,
         pipeline: R.update(nodeIndex, newNode, state.pipeline),
