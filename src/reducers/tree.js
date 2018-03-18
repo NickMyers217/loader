@@ -69,6 +69,7 @@ export default function tree(state = initialState, action) {
         visibileCount: state.visibileCount + 1
       };
     case ActionTypes.RUN_PIPELINE:
+      // BUG: don't do this if the tree is empty
       return { ...state, pipeline: flattenTree(state.data) };
     case ActionTypes.START_NODE: {
       const { nodeIndex } = action.payload;
@@ -101,10 +102,12 @@ export default function tree(state = initialState, action) {
       const secondsElapsed = (finishDate - currentNode.startDate) / 1000;
       const newNode = {
         ...currentNode,
+        err: {},
+        errorDuringEvaluation: false,
         output,
         finishDate,
         secondsElapsed,
-        subtitle: `Finished in ${secondsElapsed.toFixed(2)}`
+        subtitle: `Finished in ${secondsElapsed.toFixed(4)} seconds`
       };
       return {
         ...state,
@@ -114,6 +117,21 @@ export default function tree(state = initialState, action) {
     }
     case ActionTypes.FINISH_PIPELINE:
       return { ...state, result: action.payload.result };
+    case ActionTypes.TERMINATE_PIPELINE: {
+      const { err, nodeIndex } = action.payload;
+      const currentNode = state.pipeline[nodeIndex];
+      const newNode = {
+        ...currentNode,
+        errorDuringEvaluation: true,
+        err,
+        subtitle: 'There was an error!'
+      };
+      return {
+        ...state,
+        pipeline: R.update(nodeIndex, newNode, state.pipeline),
+        data: swapNodeInTree(state.data)(newNode)
+      };
+    }
     default:
       return state;
   }

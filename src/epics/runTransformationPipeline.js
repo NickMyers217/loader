@@ -16,7 +16,7 @@ export function runPipelineEpic(action$, store) {
     const pipeline = store.getState().tree.pipeline;
     return pipeline.length > 0
       ? Observable.concat([startNode(0), evaluateNode(0, input)]).catch(err =>
-          Observable.of(terminatePipeline)
+          Observable.of(terminatePipeline, 0)
         )
       : Observable.of(finishPipeline(input));
   });
@@ -52,9 +52,13 @@ export function evaluateNodeEpic(action$, store) {
           );
         }
       };
-      return evalNode(node, input)
-        .switchMap(output => Observable.of(finishNode(nodeIndex, output)))
-        .catch(err => Observable.of(terminatePipeline(err)));
+      try {
+        return evalNode(node, input)
+          .switchMap(output => Observable.of(finishNode(nodeIndex, output)))
+          .catch(err => Observable.of(terminatePipeline(err, nodeIndex)));
+      } catch (err) {
+        return Observable.of(terminatePipeline(err, nodeIndex));
+      }
     });
 }
 
@@ -69,6 +73,6 @@ export function continuePipelineEpic(action$, store) {
         : Observable.concat([
             startNode(nextNodeIndex),
             evaluateNode(nextNodeIndex, output)
-          ]).catch(err => Observable.of(terminatePipeline(err)));
+          ]).catch(err => Observable.of(terminatePipeline(err, nodeIndex)));
     });
 }

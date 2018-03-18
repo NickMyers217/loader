@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import SortableTree from 'react-sortable-tree';
 import 'react-sortable-tree/style.css';
 import {
+  Alert,
   Badge,
   Button,
   Modal,
@@ -13,6 +14,7 @@ import {
   Label,
   Input
 } from 'reactstrap';
+import FaExclamationTriangle from 'react-icons/lib/fa/exclamation-triangle';
 import FaEdit from 'react-icons/lib/fa/edit';
 import FaTrash from 'react-icons/lib/fa/trash';
 
@@ -75,6 +77,16 @@ export default class TransformationPipeline extends Component {
                     onClick={() => this.toggle(node, path)}
                   >
                     <FaEdit />
+                  </Button>,
+                  <Button
+                    color="danger"
+                    onClick={() => {
+                      alert(`${JSON.stringify(node.err, null, 2)}`);
+                    }}
+                    style={{ marginRight: 4 }}
+                    disabled={!node.errorDuringEvaluation}
+                  >
+                    <FaExclamationTriangle />
                   </Button>,
                   <Button
                     color="danger"

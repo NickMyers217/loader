@@ -86,9 +86,9 @@ export function finishPipeline(result) {
   };
 }
 
-export function terminatePipeline(err) {
+export function terminatePipeline(err, nodeIndex) {
   return {
     type: ActionTypes.TERMINATE_PIPELINE,
-    payload: { err }
+    payload: { err, nodeIndex }
   };
 }

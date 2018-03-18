@@ -34,7 +34,7 @@ const App = () => (
         <hr />
         <OutputData />
         <hr />
-        <TransformationPipeline height={800} title="Transformations λ" />
+        <TransformationPipeline height={800} title="Transformation λ's" />
       </div>
     </div>
   </div>
